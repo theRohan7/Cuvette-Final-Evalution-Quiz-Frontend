@@ -18,10 +18,13 @@ function QuestionAnalysis() {
         try {
           setLoading(true)
           const response = await questionAnalysis(quizID)
-  
-          if(response.status === 200){
+          
+          if(response.data.data.analysis !== null){
             
             setQuizAnalysisData(response.data.data)
+          }
+          else {
+            setQuizAnalysisData(null)
           }
         } catch (error) {
           console.error("Error Fetching Analysis data: ", error)

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { attemptQuiz, getQuiz } from "../services/quiz";
-import "../css/QuizAttempt.css"
+import "../css/AttemptQuiz.css"
+
 
 
 
@@ -17,11 +18,14 @@ const AttemptQuiz = () => {
     const [result, setResult] = useState(null)
   
     useEffect(() => {
+        console.log(quizID);
       const fetchQuiz = async () => {
         try {
           setLoading(true);
           const response = await getQuiz(quizID);
+         
           
+
           if (response.status === 200) {
             setQuizData(response.data.data.quiz);
             resetTimer(response.data.data.quiz.questions[0].timer)
@@ -36,6 +40,8 @@ const AttemptQuiz = () => {
 
       fetchQuiz();
     }, [quizID]);
+
+    
 
     useEffect(() => {
         if(quizData && timeRemaining > 0 && !quizCompleted){
@@ -60,6 +66,7 @@ const AttemptQuiz = () => {
         }
     };
 
+    
     const handleOption = (option) => {
         setSelectedOption(option)
     };
@@ -96,9 +103,17 @@ const AttemptQuiz = () => {
         }
     };
 
+
+    
+
     const submitQuiz = async( finalAnswers) => {
+    
+        
         
         const  response = await attemptQuiz(quizID, finalAnswers)
+
+        console.log(response);
+        
 
         if(response.status === 200){
             setResult(response.data.data)
@@ -106,7 +121,8 @@ const AttemptQuiz = () => {
 
         }
     }
-  
+
+   
     
     if (loading) {
         return <div>Loading...</div>;
@@ -114,38 +130,87 @@ const AttemptQuiz = () => {
     if (!quizData) {
         return <div>No quiz data available</div>;
     }
-    if (quizCompleted){
-        return <div>Quiz Completed! Your Score: {result.correct}/{result.attempted}</div>
+
+
+    const currentQuestion = quizData.questions[currentQue];
+
+    if(currentQuestion.optionType === "Image"){
+        return (
+        <div className="full-container">
+
+           
+        <div className="quiz-container">
+          <div className="quiz-question">
+            <div className="que-header">
+              <span className="que-no">{`${currentQue + 1}/${quizData.questions.length}`}</span>
+              <span className="que-timer">{`00:${timeRemaining
+                .toString()
+                .padStart(2, "0")}s`}</span>
+            </div>
+            <p className="que-text">{currentQuestion.questionText}</p>
+            <div className="options-grid">
+              {currentQuestion.options.map((option, index) => (
+                <button
+                  key={index}
+                  className={`imageOption ${
+                    selectedOption === option.imageUrl ? "selected" : ""
+                  }`}
+                  onClick={() => handleOption(option.imageUrl)}
+                >
+                  <img src={option.imageUrl} className="option-image" />
+                </button>
+              ))}
+            </div>
+            <button className="next-btn" onClick={handleNextQuestion}>
+              NEXT
+            </button>
+          </div>
+        </div>
+        </div> 
+        );
+    }
+
+    if(quizCompleted){
+        <div>Congrats Quiz is Completed</div>
     }
     
-    //   console.log(quizData);
-      const currentQuestion = quizData.questions[currentQue];
-    //   console.log(currentQuestion);
-      
     
+
+   
+    
+  
     
   return (
-  <div className="quiz-question">
-    <div className="question-header">
-        <span>{`${currentQue + 1}/${quizData.questions.length}`}</span>
-        <span className="timer">{`00:${timeRemaining.toString().padStart(2,'0')}s`}</span>
-    </div>
-    <p className="question-text">{currentQuestion.questionText}</p>
-    <div className="options-grid">
-       {currentQuestion.options.map((option, index) => (
-        <button
-        key={index}
-        className={`option ${selectedOption === option.text ? 'selected' :''}`}
-        onClick={() => handleOption(option.text)}>
-            {option.text}
+    <div className="full-container">
+    <div className="quiz-container">
+      <div className="quiz-question">
+        <div className="que-header">
+          <span className="que-no" >{`${currentQue + 1}/${quizData.questions.length}`}</span>
+          <span className="que-timer">{`00:${timeRemaining
+            .toString()
+            .padStart(2, "0")}s`}</span>
+        </div>
+        <p className="que-text">{currentQuestion.questionText}</p>
+        <div className="options-grid">
+          {currentQuestion.options.map((option, index) => (
+            <button
+              key={index}
+              className={`option ${
+                selectedOption === option.text ? "selected" : ""
+              }`}
+              onClick={() => handleOption(option.text)}
+            >
+              {option ? option.text : option.imageUrl}
+            </button>
+          ))}
+        </div>
+        <button className="next-btn" onClick={handleNextQuestion}>
+          NEXT
         </button>
-       ))}
+      </div>
     </div>
-    <button className="next-button" onClick={handleNextQuestion}>
-        NEXT
-    </button>
-  </div>
-  )
+    </div>
+  );
 }
 
 export default AttemptQuiz

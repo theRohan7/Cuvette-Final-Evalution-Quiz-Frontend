@@ -15,8 +15,8 @@ function AddQuestion({quizID, onClose}) {
         questionText: "",
         optionType: "Text",
         options: [
-            {text: '', isCorrect:false},
-            {text: '', isCorrect:false},
+            {text: '',imageUrl:'', isCorrect:false},
+            {text: '',imageUrl:'', isCorrect:false},
         ],
         timer: 'OFF'
       },
@@ -33,6 +33,7 @@ function AddQuestion({quizID, onClose}) {
                 options: [
                   {
                     text: "",
+                    imageUrl:"",
                     isCorrect: false,
                   },
                 ],
@@ -56,7 +57,12 @@ function AddQuestion({quizID, onClose}) {
 
     const handleOptionChange = (queIndex, optionIndex, value) => {
         var newQuestion = [...questionData];
-        newQuestion[queIndex].options[optionIndex].text = value;
+        if(newQuestion[queIndex].optionType === "Text"){
+            newQuestion[queIndex].options[optionIndex].text = value;
+        }
+         if(newQuestion[queIndex].optionType === "Image"){
+            newQuestion[queIndex].options[optionIndex].imageUrl = value;
+        }
         setQuestionData(newQuestion);
     }
 
@@ -110,8 +116,8 @@ function AddQuestion({quizID, onClose}) {
                   questionText: "",
                   optionType: "Text",
                   options: [
-                      {text: '', isCorrect:false},
-                      {text: '', isCorrect:false},
+                      {text: '',imageUrl:"", isCorrect:false},
+                      {text: '',imageUrl:"", isCorrect:false},
                   ],
                   timer: 'OFF'
                 },
@@ -131,18 +137,10 @@ function AddQuestion({quizID, onClose}) {
         setShareReady(false)
     }
 
-    const handleNextQuestion = () => {
-        if(currentQuestionIndex < questionData.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-        }
-    };
-
-    const handlePreviousQuestion = () => {
-        if( currentQuestionIndex  > 0) {
-            setCurrentQuestionIndex(currentQuestionIndex - 1);
-        }
-    }
+    console.log(questionData);
     
+    
+
  
   return (
     <>
@@ -175,30 +173,30 @@ function AddQuestion({quizID, onClose}) {
                             <div className='option-types' >
                                 <label>Option Type</label>
                                 <div className="option-type">
-                                <label>
-                                <input
-                                    type="radio"
-                                    value="Text"
-                                    checked={questionData[currentQuestionIndex].optionType === 'Text'}
-                                    onChange={() => handleOptionTypeChange(currentQuestionIndex, 'Text')}
-                                /> Text
-                                </label>
-                                <label>
-                                <input
-                                    type="radio"
-                                    value="Image URL"
-                                    checked={questionData[currentQuestionIndex].optionType === 'Image URL'}
-                                    onChange={() => handleOptionTypeChange(currentQuestionIndex, 'Image')}
-                                /> Image URL
-                                </label>
-                                <label>
-                                <input
-                                    type="radio"
-                                    value="Text & Image URL"
-                                    checked={questionData[currentQuestionIndex].optionType === 'Text & Image URL'}
-                                    onChange={() => handleOptionTypeChange(currentQuestionIndex, 'Text & Image URL')}
-                                /> Text & Image URL
-                                </label>
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        value="Text"
+                                        checked={questionData[currentQuestionIndex].optionType === 'Text'}
+                                        onChange={() => handleOptionTypeChange(currentQuestionIndex, 'Text')}
+                                    /> Text
+                                    </label>
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        value="Image"
+                                        checked={questionData[currentQuestionIndex].optionType === 'Image'}
+                                        onChange={() => handleOptionTypeChange(currentQuestionIndex, 'Image')}
+                                    /> Image URL
+                                    </label>
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        value="Text & Image URL"
+                                        checked={questionData[currentQuestionIndex].optionType === 'Text & Image URL'}
+                                        onChange={() => handleOptionTypeChange(currentQuestionIndex, 'Text & Image URL')}
+                                    /> Text & Image URL
+                                    </label>
 
                                 </div>
                             </div>
@@ -220,7 +218,7 @@ function AddQuestion({quizID, onClose}) {
                                         name='option'
                                         type="text"
                                         placeholder='Enter option'
-                                        value={option.text}
+                                        value={questionData[currentQuestionIndex].optionType === "Text" ? option.text : option.imageUrl}
                                         onChange={(e) => handleOptionChange(currentQuestionIndex, optionIndex, e.target.value)}
                                         className='option-input' 
                                         />

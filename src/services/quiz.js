@@ -59,7 +59,9 @@ const getAllQuiz = async() => {
 
 const addQuestion = async(questionData, quizID) => {
    try {
-    
+     console.log(questionData);
+     
+
      const URL = `${BACKEND_URL}/quiz/add-question/${quizID}`
      const token = localStorage.getItem('token');
      const response = await axios.post(URL,{
