@@ -1,0 +1,83 @@
+.container {
+    /* max-width: 100%; */
+    /* margin: 0 auto; */
+    /* padding: 20px; */
+    /* background-color: #e2c4c4; */
+    /* border-radius: 8px; */
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+}
+
+.analysis-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.quiz-title {
+
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 60px;
+    text-align: left;
+    color: #5076FF;
+}
+
+.creation-impression {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 22.5px;
+    text-align: left;
+    color: #FF5D01;
+
+}
+
+.question-container {
+    margin-bottom: 20px;
+}
+
+.question-title {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 45px;
+    text-align: left;
+    color: black;
+}
+
+.stats-container {
+    padding: 15px;
+    margin-right: 35px;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.statBox {
+    padding: 20px;
+    background-color: #fff;
+    color: #474444;
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.statValue {
+
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 45px;
+    text-align: center;
+    
+}
+
+.statLabel {
+
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+    text-align: center;
+}

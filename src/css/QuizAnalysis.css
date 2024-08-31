@@ -1,0 +1,72 @@
+.analysis-dashboard{
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.title {
+
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 75px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #5076FF ;
+}
+
+.quiz-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.quiz-table th, .quiz-table td {
+    border: none; 
+    padding: 5px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 40px;
+    text-align: center;
+}
+
+.quiz-table-scroll{
+    max-height: 500px ;
+    overflow-y: auto;
+}
+
+.even{
+   background-color: #B3C4FF; 
+}
+  
+.quiz-table th {
+    background-color: #4a69bd;
+    color: white;
+}
+  
+.action-button {
+    margin-right: 25px;
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 16px;
+}
+
+.delete{
+    font-size: 22px;
+  color: #D60000;
+}
+
+.edit {
+  color: #854CFF;
+  font-size: 22px;
+}
+
+.share {
+    color: #60B84B;
+    font-size: 22px;
+}
+
+.analysis-link {
+    color: #000000 ;
+}
