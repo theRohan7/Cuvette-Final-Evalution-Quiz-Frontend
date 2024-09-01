@@ -21,7 +21,7 @@ function QuizAnalysis() {
             navigate('/login'); 
         }
         
-    }, [navigate]);
+    }, []);
 
 
     const handleCreateQuiz =() => {
@@ -54,7 +54,11 @@ function QuizAnalysis() {
     }
 
     const handleDelete = async(quiz) => {
-        const response =  await deleteQuiz({quizID: quiz._id})    
+        console.log("dele req");
+        const response =  await deleteQuiz({quizID: quiz._id}) 
+        if(response.status === 200){
+            window.location.reload()
+        }      
     }
 
     const handleShare = async(quiz) => {

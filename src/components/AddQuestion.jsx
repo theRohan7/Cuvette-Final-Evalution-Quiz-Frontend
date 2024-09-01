@@ -137,6 +137,10 @@ function AddQuestion({quizID, onClose}) {
         setShareReady(false)
     }
 
+    const handleQuestionNavigation = (index) => {
+        setCurrentQuestionIndex(index)
+    }
+
     console.log(questionData);
     
     
@@ -152,13 +156,22 @@ function AddQuestion({quizID, onClose}) {
                     <div>
                         <div className="question-header">
                             <div>
-                            <label className="question-number">{currentQuestionIndex + 1}</label>
-                            {currentQuestionIndex === questionData.length -1 && questionData.length < 5 && (
-                                <button type='button' onClick={() => {handleAddQuestion(); setCurrentQuestionIndex(currentQuestionIndex + 1); }} className='add-question'>+</button>
+                            {questionData.map((_, index) => (
+                            <button
+                            key={index}
+                            type="button"
+                            onClick={() => handleQuestionNavigation(index)}
+                            className="question-number"
+                            >
+                            {index + 1}
+                            </button>
+                            ))}
+                            {currentQuestionIndex === questionData.length - 1 && questionData.length < 5 && (
+                                <button type="button" onClick={handleAddQuestion} className="add-question">+</button>
                             )}
+                                </div>
+                                <span>Max 5 Questions</span>
                             </div>
-                            <span>Max 5 Questions</span>
-                        </div>
                         
                         <div className="question-form-group">
                             <input 

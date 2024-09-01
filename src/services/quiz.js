@@ -134,7 +134,6 @@ const deleteQuiz = async ({quizID}) => {
                 'Authorization': token
             }
         })
-        window.location.reload();
         return response;
     } catch (error) {
         console.error(error.reponse.data.message);
