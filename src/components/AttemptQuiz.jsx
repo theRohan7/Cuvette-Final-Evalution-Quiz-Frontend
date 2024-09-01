@@ -169,13 +169,16 @@ const AttemptQuiz = () => {
     }
   
     
+    console.log(currentQuestion);
+    
+
   return (
     <div className="full-container">
     <div className="quiz-container">
       <div className="quiz-question">
         <div className="que-header">
           <span className="que-no" >{`${currentQue + 1}/${quizData.questions.length}`}</span>
-          <span className="que-timer">{`00:${timeRemaining
+          <span className={currentQuestion.timer ?  "que-timer" : 'hide-time'}>{`00:${timeRemaining
             .toString()
             .padStart(2, "0")}s`}</span>
         </div>
