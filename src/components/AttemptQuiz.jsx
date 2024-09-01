@@ -143,9 +143,9 @@ const AttemptQuiz = () => {
           <div className="quiz-question">
             <div className="que-header">
               <span className="que-no">{`${currentQue + 1}/${quizData.questions.length}`}</span>
-              <span className="que-timer">{`00:${timeRemaining
+              <span className={currentQuestion.timer === "OFF" ? `timer-off` : 'que-timer'}>{`00:${timeRemaining
                 .toString()
-                .padStart(2, "0")}s`}</span>
+                .padStart(2, "0")}s `}</span>
             </div>
             <p className="que-text">{currentQuestion.questionText}</p>
             <div className="options-grid">
@@ -169,6 +169,8 @@ const AttemptQuiz = () => {
         </div> 
         );
     }
+
+
 
     if(quizCompleted){
         <div>Congrats Quiz is Completed</div>

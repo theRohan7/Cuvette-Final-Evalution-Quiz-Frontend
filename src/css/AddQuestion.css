@@ -59,7 +59,7 @@
 }
 
 .question-form-group{
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 
@@ -106,7 +106,7 @@
 .option-and-timer{
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .timer-section{

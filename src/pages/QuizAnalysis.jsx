@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import "../css/QuizAnalysis.css"
 import CreateQuiz from '../components/CreateQuiz';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { deleteQuiz, editQuiz, getAllQuiz } from '../services/quiz';
+import toast from 'react-hot-toast';
+import { logout } from '../services/register';
 
 function QuizAnalysis() {
- 
+  
+    const location = useLocation();
+
     const navigate = useNavigate();
     const [createQuiz, setCreateQuiz] = useState(false)
     const [quizzes, setQuizzes] = useState([])
@@ -46,6 +50,23 @@ function QuizAnalysis() {
         const response =  await deleteQuiz({quizID: quiz._id})    
     }
 
+    const handleShare = async(quiz) => {
+        const quizUrl = `${window.location.origin}/take-quiz/${quiz._id}`;
+        navigator.clipboard.writeText(quizUrl);
+        toast.success('Quiz link copied to clipboard')
+    }
+
+    
+    const handleLogout = async () => {
+        const response = await logout();
+
+        if(response.status === 200){
+           localStorage.removeItem('token')
+           navigate('/login'); 
+        }
+        
+    }
+
     function formatImpression (Impressions) {
         if(Impressions >= 1000){
             return(Impressions/1000).toFixed(1) + "k"
@@ -66,7 +87,7 @@ function QuizAnalysis() {
             </div>
           </div>
           <hr width="70%" />
-          <div className="logout">LOGOUT</div>
+          <div className="logout" onClick={handleLogout} >LOGOUT</div>
          
         </aside>
         <main className="content">
@@ -92,7 +113,7 @@ function QuizAnalysis() {
                             <td>
                                 <button className='action-button edit' onClick={() => handleEdit(quiz)} ><i className="ri-edit-box-line"></i></button>
                                 <button className='action-button delete' onClick={() => handleDelete(quiz)} ><i className="ri-delete-bin-6-fill"></i></button>
-                                <button className='action-button share' ><i className="ri-share-fill"></i></button>
+                                <button className='action-button share' onClick={() => handleShare(quiz)} ><i className="ri-share-fill"></i></button>
                                 <a onClick={() => navigate(`/question-analysis/${quiz._id}`)} className='analysis-link'>Question wise Analysis</a>
                             </td>
                         </tr>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../css/Home.css"
 import CreateQuiz from '../components/CreateQuiz';
 import { getAllQuiz } from '../services/quiz';
+import { logout } from '../services/register';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -22,7 +23,17 @@ function Home() {
     const handleCloseCreateQuiz = () => {
         setCreateQuiz(false)
     }
-    
+
+    const handleLogout = async () => {
+        const response = await logout();
+
+        if(response.status === 200){
+           localStorage.removeItem('token')
+           navigate('/login'); 
+        }
+        
+    }
+
     useEffect(() => {
         const fetchAllQuiz = async() => {
             const response = await getAllQuiz();
@@ -70,7 +81,7 @@ function Home() {
             </div>
           </div>
           <hr width="70%" />
-          <div className="logout">LOGOUT</div>
+          <div className="logout" onClick={handleLogout}>LOGOUT</div>
          
         </aside>
         <main className='content'>

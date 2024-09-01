@@ -37,10 +37,31 @@ const login = async ({email, password}) => {
     
 }
 
+const logout = async() => {
+
+    try {
+        const URL = `${BACKEND_URL}/user/logout`
+        const token = localStorage.getItem('token')
+    
+        const response = await axios.get(URL, {
+            headers: {
+                "Authorization": token
+            }
+        })
+
+        return response;
+    } catch (error) {
+        console.error(error.response.data.message);
+        throw new Error(error.response.data.message)
+        
+    }
+}
+
 
 
 
 export { 
     register,
     login,
+    logout,
  }

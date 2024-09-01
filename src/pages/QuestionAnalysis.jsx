@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { questionAnalysis } from '../services/quiz';
 import QAtypeAnalysis from '../components/QAtypeAnalysis';
 import PollQueAnalysis from '../components/PollQueAnalysis';
+import { logout } from '../services/register';
 
 function QuestionAnalysis() {
 
@@ -47,6 +48,17 @@ function QuestionAnalysis() {
         setAllowEdit(false)
     }
 
+    
+    const handleLogout = async () => {
+      const response = await logout();
+
+      if(response.status === 200){
+         localStorage.removeItem('token')
+         navigate('/login'); 
+      }
+      
+  }
+
   if (loading) {
       return <div>Loading...</div>;
   }
@@ -70,7 +82,7 @@ function QuestionAnalysis() {
           </div>
         </div>
         <hr width="70%" />
-        <div className="logout">LOGOUT</div>
+        <div className="logout" onClick={handleLogout}>LOGOUT</div>
        
       </aside>
       <main className="content">
