@@ -15,6 +15,14 @@ function QuestionAnalysis() {
     const [quizAnalysisData, setQuizAnalysisData] = useState([])
 
     useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+          navigate('/login'); 
+      }
+      
+  }, [navigate]);
+
+    useEffect(() => {
       const fetchAnalysisData = async(quizID) => {
         try {
           setLoading(true)

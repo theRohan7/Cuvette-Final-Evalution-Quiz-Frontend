@@ -15,6 +15,13 @@ function QuizAnalysis() {
     const [quizzes, setQuizzes] = useState([])
     const [allowEdit, setAllowEdit] = useState(false)
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login'); 
+        }
+        
+    }, [navigate]);
 
 
     const handleCreateQuiz =() => {

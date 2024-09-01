@@ -14,6 +14,14 @@ function Home() {
     const navigate = useNavigate();
     const [createQuiz, setCreateQuiz] = useState(false)
     const [quizzes, setQuizzes] = useState([])
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login'); 
+        }
+        
+    }, [navigate]);
     
 
     const handleCreateQuiz =() => {
