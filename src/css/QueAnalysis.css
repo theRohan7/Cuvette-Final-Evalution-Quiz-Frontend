@@ -33,6 +33,10 @@
     color: #FF5D01;
 
 }
+.scroll-analysis {
+    max-height: 550px ;
+    overflow-y: auto;
+}
 
 .question-container {
     margin-bottom: 20px;

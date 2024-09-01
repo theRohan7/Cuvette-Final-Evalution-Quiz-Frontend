@@ -61,9 +61,8 @@ const AttemptQuiz = () => {
                 setTimeRemaining(9999)
 
         }
-    };
-
-    
+    };    
+  
     const handleOption = (option) => {
         setSelectedOption(option)
     };
@@ -102,6 +101,8 @@ const AttemptQuiz = () => {
 
     const submitQuiz = async( finalAnswers) => {
     
+        console.log(finalAnswers);
+        
         const  response = await attemptQuiz(quizID, finalAnswers)
         console.log(response.data);
         
@@ -123,7 +124,7 @@ const AttemptQuiz = () => {
     if(quizCompleted) {
       return (
         <div className="result-container">
-          <h3 className="result-header">Congrats Quiz is completed</h3>
+          <h3 className="result-header">{quizData.quizType === "Q&A" ? 'Congrats Quiz is completed': 'Thank you for participating in the Poll.'}</h3>
           <img className="trophy-image" src="https://s3-alpha-sig.figma.com/img/f47f/6d98/a013b07f931834dfba3cd6ddc9130436?Expires=1725840000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=hqgWGAHO1eoSVRrHiuP4GggRnoZT5~hNNRliyDBS~3Xsjz9uvHvcwBMIAkUjDOvR1X0Sz4IL17PmHvFPEojOw713O3YL~wR7KC6iwNtwC4RTZWwQRnbm10-GEqyFQ5S88k~2Ts6J8HekuikNXTRAQiCZUvQJv7hN19isOMyXlPY6SAp43wmE3a24Am~weZPVSs33iv3ADjGRVWxZdvkNSsu--LyWF4chWOYam18dgGqEjUE0~JoBOO5vraDdoe45YymaUwl88H13Oa-VN2OSR5m2RwrUPwJaHFv19cOgSUx1A2~Ma0SDfG4755t0SnAa69u2lp5RdRuHY1FtGfgToQ__" alt="Trophy Image" />
         </div>
       )
@@ -188,7 +189,7 @@ const AttemptQuiz = () => {
               }`}
               onClick={() => handleOption(option.text)}
             >
-              {option ? option.text : option.imageUrl}
+              {option.text}
             </button>
           ))}
         </div>

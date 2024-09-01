@@ -84,6 +84,8 @@ const addQuestion = async(questionData, quizID) => {
 
 const attemptQuiz = async (quizID, finalAnswers) => {
         
+    console.log(finalAnswers);
+    
   try {
       const URL = `${BACKEND_URL}/quiz/take-quiz/${quizID}`;
       const response = await axios.post(URL,{answers: finalAnswers}  );

@@ -13,7 +13,7 @@ function QAtypeAnalysis({quizAnalysisData}) {
         </div>
 
       </div>
-
+      <div className='scroll-analysis'>
      {quizAnalysisData.analysis.questionAnalysis.map((question, index) => (
 
       <div className="question-container" key={question.questionID} >
@@ -39,7 +39,9 @@ function QAtypeAnalysis({quizAnalysisData}) {
 
         </div>
       </div>
+      
     ))};
+    </div>
 
   </div>
   )
